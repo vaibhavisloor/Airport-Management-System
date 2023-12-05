@@ -106,7 +106,6 @@ def login_page():
 
     if admin_login or st.session_state.admin_login_state:
         st.session_state.admin_login_state = True
-        st.success("Succesfully Logged In")
         query = (f"""SELECT username, password
                     FROM admin WHERE (username, password) 
                  = (SELECT ? AS input_username, ? AS input_password);
@@ -115,6 +114,7 @@ def login_page():
         user = cursor.fetchone()
 
         if (user is not None):
+            st.success("Succesfully Logged In")
             admin_page()
         else:
             st.error("Invalid username or password")
